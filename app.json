@@ -1,0 +1,29 @@
+{
+  "pages":[
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/roles/roles",
+    "pages/news/news",
+    "pages/manager/manager"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "Weixin",
+    "navigationBarTextStyle":"black"
+  },
+  "tabBar": {
+    "list": [{
+      "pagePath": "pages/index/index",
+      "text": "首页"
+    }, {
+      "pagePath": "pages/news/news",
+      "text": "新人筹备"
+    }, {
+      "pagePath": "pages/manager/manager",
+      "text": "婚礼人人筹备"
+    }]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
