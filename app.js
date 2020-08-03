@@ -13,11 +13,15 @@ App({
           let code = res.code
           let appid = "auth.code2Session"
           let secret = '0137d5a6f12ed12fbf8514cc184c755f'
-          let url = `https://api.weixin.qq.com/sns/jscode2session?appid=${appid}&secret=${secret}&js_code=${code}&grant_type=authorization_code`
+          let url = 'https://api.grasses.top:3000/user/login'
           wx.request({
             url: url,
+            method:"POST",
+            data:{
+              code:res.code
+            },
             success:(res2)=>{
-              console.log(res2)
+              console.log(res2.data)
             }
           })
         }
