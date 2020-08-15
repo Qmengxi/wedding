@@ -1,2 +1,41 @@
 <!--pages/news/news.wxml-->
-<text>pages/news/news.wxml</text>
+<view>
+  <i-tabs current="{{ current }}" bindchange="handleChange">
+    <i-tab key="tab1" title="代办事项"></i-tab>
+    <i-tab key="tab2" title="已办事项"></i-tab>
+</i-tabs>
+  <view class="icon-add">
+    <i-icon type="add" size="28" color="#80848f" />
+  </view>
+  <block wx:if="{{todoList.size > 0 && isTodo}}">
+   <view class="list-wrap">
+
+    <i-swipeout  i-class="i-swipeout-demo-item task-item" actions="{{actions}}" wx:for="{{todoList}}" wx:key="id">
+        <view slot="content">
+            <i-cell 
+                i-class="i-cell-padding" 
+                title="猛虫过江" 
+                label="侏罗纪世界主题公园及豪华度假村被失控的恐龙们摧毁已有四年">
+                 <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}" bindtap="changeStatus" data-status="{{item}}"/><text>{{item.title}}</text>
+      <view>{{ item.detail }}</view>
+            </i-cell>
+        </view>
+    </i-swipeout>
+
+    <view class="task-item" wx:for="{{todoList}}" wx:key="id">
+      <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}" bindtap="changeStatus" data-status="{{item}}"/><text>{{item.title}}</text>
+      <view>{{ item.detail }}</view>
+    </view>
+  </view>
+  </block>
+  <view class="list-wrap" wx:elif="{{doneList.size > 0 && !isTodo}}">
+  222
+    <view class="task-item" wx:for="{{doneList}}" wx:key="id">
+      <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}"/><text>{{item.title}}</text>
+      <view>{{ item.detail }}</view>
+    </view>
+  </view>
+  <view wx:else>
+    <text>{{doneList.length}}</text>
+  </view>
+</view>

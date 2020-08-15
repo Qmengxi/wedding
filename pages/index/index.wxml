@@ -1,13 +1,27 @@
 <!--index.wxml-->
 <view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-    </block>
+  <view class="userinfo" wx:if="{{!hasUserInfo && canIUse}}" >
+    <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权并登陆 </button>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
+  <view class="role-choose" wx:else>
+  <view class="text">
+  <text class="userinfo-nickname">嗨～{{userInfo.nickName}}</text>
+  <text>欢迎使用小凡小倩婚礼筹备小程序</text> 
+  <text class="choose">请选择您的角色:</text>
+  
+  </view>
+  <view class="role-wrap">
+    <view class="item">
+      <image class="role-avatar" src="../images/we.jpg" bindtap="switchNews"></image>
+      <text>新人</text>
+    </view>
+    <view class="item">
+      <image class="role-avatar" src="../images/milai.jpg" bindtap="switchManager"></image>
+      <text>婚礼人</text>
+    </view>
+  </view>
+
+<!-- <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image> -->
+      
   </view>
 </view>

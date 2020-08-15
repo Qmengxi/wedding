@@ -1,8 +1,13 @@
 /**index.wxss**/
+.container{
+  padding: 20rpx;
+}
 .userinfo {
+  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
 }
 
 .userinfo-avatar {
@@ -11,11 +16,39 @@
   margin: 20rpx;
   border-radius: 50%;
 }
-
-.userinfo-nickname {
-  color: #aaa;
+.text{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
 }
-
-.usermotto {
-  margin-top: 200px;
+.choose{
+  margin-top: 50rpx;
+}
+text{
+  display: block;
+}
+.role-choose{
+  padding-top: 150rpx;
+  width: 100%;
+  color: #666;
+  font-size: 26rpx;
+}
+.role-wrap{
+  margin-top: 50rpx;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.role-avatar{
+  width: 240rpx;
+  height: 240rpx;
+  border-radius: 50%;
+  margin-bottom: 50rpx;
 }

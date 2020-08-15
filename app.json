@@ -14,9 +14,6 @@
   },
   "tabBar": {
     "list": [{
-      "pagePath": "pages/index/index",
-      "text": "首页"
-    }, {
       "pagePath": "pages/news/news",
       "text": "新人筹备"
     }, {
@@ -25,5 +22,8 @@
     }]
   },
   "style": "v2",
-  "sitemapLocation": "sitemap.json"
+  "sitemapLocation": "sitemap.json",
+  "useExtendedLib": {
+    "weui": true
+  }
 }
