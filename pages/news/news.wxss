@@ -5,3 +5,18 @@
   display: flex;
   justify-content: flex-end;
 }
+.i-swipeout-content{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.i-swipeout-button-right-group{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.i-swipeout-des-h2{
+  font-size: 36rpx;
+  font-weight: bold;
+}

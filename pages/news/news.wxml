@@ -15,19 +15,19 @@
         <text>删除后无法恢复哦</text>
     </view>
   </i-action-sheet>
-  <i-swipeout  i-class="i-swipeout-demo-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{todoList}}">
-    <view slot="content">
-        <view class="i-swipeout-image">
+  <i-swipeout  i-class="i-swipeout-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{todoList}}">
+    <view i-class="i-swipeout-content" slot="content" style="display: flex;justify-content: flex-start;align-items: center;" >
+      <view class="i-swipeout-image">
         <i-icon type="flag"  size="40" color="#2d8cf0"/>
       </view>
       <view class="i-swipeout-des">
             <view class="i-swipeout-des-h2">{{item.title}}</view>
-            <view class="i-swipeout-des-detail">{{item.detail}}</view>
+            <view class="i-swipeout-des-detail" style="white-space: normal;">{{item.detail}}</view>
       </view>
     </view>
-    <view slot="button" class="i-swipeout-demo-button-group" style="border-left:1rpx solid #ccc">
-        <view class="i-swipeout-demo-button" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
-        <view class="i-swipeout-demo-button" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
+    <view slot="button" class="i-swipeout-button-right-group" style="border-left:1rpx solid #ccc">
+        <view class="i-swipeout-button-right-item" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
+        <view class="i-swipeout-button-right-item" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
     </view>
   </i-swipeout>
   </view>
