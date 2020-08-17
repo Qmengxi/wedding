@@ -1,4 +1,5 @@
 // pages/news/news.js
+const { $Message } = require('../dist/base/index');
 Page({
 
   /**
@@ -14,35 +15,46 @@ Page({
     toggle2 : false,
     actions2: [
       {
+          name: '取消'
+      },
+      {
           name: '删除',
-          color: '#ed3f14'
+          color: '#ed3f14',
+          loading: false
       }
-  ],
+    ],
   },
-  handleCancel2 () {
+  addTask(){
+    console.log('1111')
+    wx.navigateTo({
+      url:'../add-task/add-task?role=1'
+    })
+  },
+handleClickItem2 ({ detail }) {
+  if (detail.index === 0) {
     this.setData({
-        visible2: false,
-        toggle : this.data.toggle ? false : true
+      visible2: false
     });
-    console.log( this.data.toggle,111111111 )
-},
-handleClickItem2 () {
+  } else {
     const action = [...this.data.actions2];
-    action[0].loading = true;
+    action[1].loading = true;
 
     this.setData({
-        actions2: action
+      actions2: action
     });
 
     setTimeout(() => {
-        action[0].loading = false;
-        this.setData({
-            visible2: false,
-            actions2: action,
-            toggle: this.data.toggle ? false : true
-        });
-        
+      action[1].loading = false;
+      this.setData({
+        visible2: false,
+        actions2: action
+      });
+      $Message({
+        content: '删除成功！',
+        type: 'success'
+      });
     }, 2000);
+  }
 },
 handlerCloseButton(){
   this.setData({
@@ -92,6 +104,20 @@ taskDone(e){
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+    
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
     wx.request({
       url: 'https://api.grasses.top:3000/task/todoList-customer',
       data:{
@@ -113,23 +139,8 @@ taskDone(e){
           todoList:todoList,
           doneList:doneList
         })
-        console.log(res)
       }
     })
-  },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
   },
 
   /**

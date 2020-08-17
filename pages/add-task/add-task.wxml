@@ -1,0 +1,8 @@
+<!--pages/add-task/add-task.wxml-->
+<view>
+  <i-panel title="{{title}}">
+    <i-input value="{{ taskTitle }}" type="textarea" title="标题" bind:change="changeTitle"/>
+    <i-input value="{{ taskDes }}" type="textarea" title="详细信息" bind:change="changeDes"/>
+</i-panel>
+<i-button bind:click="saveTask" type="primary">保存</i-button>
+</view>

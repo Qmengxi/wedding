@@ -4,38 +4,48 @@
     <i-tab key="todoTab" title="代办事项"></i-tab>
     <i-tab key="doneTab" title="已办事项"></i-tab>
 </i-tabs>
-  <view class="icon-add">
+  <view class="icon-add" bindtap="addTask">
     <i-icon type="add" size="28" color="#80848f" />
   </view>
+  <i-modal title="删除确认" visible="{{ visible2 }}" actions="{{ actions2 }}" bind:click="handleClickItem2">
+    <view>删除后无法恢复哦</view>
+</i-modal>
   <block wx:if="{{isTodo}}">
    <view class="list-wrap">
-  <i-action-sheet visible="{{ visible2 }}" actions="{{ actions2 }}" show-cancel bind:cancel="handleCancel2" bind:click="handleClickItem2" mask-closable="{{ false }}">
-    <view slot="header" style="padding: 16px">
-        <view style="color: #444;font-size: 16px">确定吗？</view>
-        <text>删除后无法恢复哦</text>
+      <i-swipeout  i-class="i-swipeout-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{todoList}}">
+        <view i-class="i-swipeout-content" slot="content" style="display: flex;justify-content: flex-start;align-items: center;" >
+          <view class="i-swipeout-image">
+            <i-icon type="flag"  size="40" color="#2d8cf0"/>
+          </view>
+          <view class="i-swipeout-des">
+                <view class="i-swipeout-des-h2">{{item.title}}</view>
+                <view class="i-swipeout-des-detail" style="white-space: normal;">{{item.detail}}</view>
+          </view>
+        </view>
+        <view slot="button" class="i-swipeout-button-right-group" style="border-left:1rpx solid #ccc">
+            <view class="i-swipeout-button-right-item" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
+            <view class="i-swipeout-button-right-item" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
+        </view>
+      </i-swipeout>
     </view>
-  </i-action-sheet>
-  <i-swipeout  i-class="i-swipeout-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{todoList}}">
-    <view i-class="i-swipeout-content" slot="content" style="display: flex;justify-content: flex-start;align-items: center;" >
-      <view class="i-swipeout-image">
-        <i-icon type="flag"  size="40" color="#2d8cf0"/>
-      </view>
-      <view class="i-swipeout-des">
-            <view class="i-swipeout-des-h2">{{item.title}}</view>
-            <view class="i-swipeout-des-detail" style="white-space: normal;">{{item.detail}}</view>
-      </view>
-    </view>
-    <view slot="button" class="i-swipeout-button-right-group" style="border-left:1rpx solid #ccc">
-        <view class="i-swipeout-button-right-item" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
-        <view class="i-swipeout-button-right-item" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
-    </view>
-  </i-swipeout>
-  </view>
   </block>
-  <!-- <view class="list-wrap" wx:elif="{{doneList.length > 0 && !isTodo}}">
-    <view class="task-item" wx:for="{{doneList}}" wx:key="id">
-      <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}"/><text>{{item.title}}</text>
-      <view>{{ item.detail }}</view>
+  <block wx:if="{{!isTodo}}">
+   <view class="list-wrap">
+      <i-swipeout  i-class="i-swipeout-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{doneList}}">
+        <view i-class="i-swipeout-content" slot="content" style="display: flex;justify-content: flex-start;align-items: center;" >
+          <view class="i-swipeout-image">
+            <i-icon type="flag"  size="40" color="#2d8cf0"/>
+          </view>
+          <view class="i-swipeout-des">
+                <view class="i-swipeout-des-h2">{{item.title}}</view>
+                <view class="i-swipeout-des-detail" style="white-space: normal;">{{item.detail}}</view>
+          </view>
+        </view>
+        <view slot="button" class="i-swipeout-button-right-group" style="border-left:1rpx solid #ccc">
+            <view class="i-swipeout-button-right-item" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
+            <view class="i-swipeout-button-right-item" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
+        </view>
+      </i-swipeout>
     </view>
-  </view> -->
+  </block>
 </view>

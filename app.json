@@ -2,9 +2,9 @@
   "pages":[
     "pages/index/index",
     "pages/logs/logs",
-    "pages/roles/roles",
     "pages/news/news",
-    "pages/manager/manager"
+    "pages/manager/manager",
+    "pages/add-task/add-task"
   ],
   "window":{
     "backgroundTextStyle":"light",
