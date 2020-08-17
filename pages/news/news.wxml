@@ -1,41 +1,41 @@
 <!--pages/news/news.wxml-->
 <view>
   <i-tabs current="{{ current }}" bindchange="handleChange">
-    <i-tab key="tab1" title="代办事项"></i-tab>
-    <i-tab key="tab2" title="已办事项"></i-tab>
+    <i-tab key="todoTab" title="代办事项"></i-tab>
+    <i-tab key="doneTab" title="已办事项"></i-tab>
 </i-tabs>
   <view class="icon-add">
     <i-icon type="add" size="28" color="#80848f" />
   </view>
-  <block wx:if="{{todoList.size > 0 && isTodo}}">
+  <block wx:if="{{isTodo}}">
    <view class="list-wrap">
-
-    <i-swipeout  i-class="i-swipeout-demo-item task-item" actions="{{actions}}" wx:for="{{todoList}}" wx:key="id">
-        <view slot="content">
-            <i-cell 
-                i-class="i-cell-padding" 
-                title="猛虫过江" 
-                label="侏罗纪世界主题公园及豪华度假村被失控的恐龙们摧毁已有四年">
-                 <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}" bindtap="changeStatus" data-status="{{item}}"/><text>{{item.title}}</text>
-      <view>{{ item.detail }}</view>
-            </i-cell>
-        </view>
-    </i-swipeout>
-
-    <view class="task-item" wx:for="{{todoList}}" wx:key="id">
-      <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}" bindtap="changeStatus" data-status="{{item}}"/><text>{{item.title}}</text>
-      <view>{{ item.detail }}</view>
+  <i-action-sheet visible="{{ visible2 }}" actions="{{ actions2 }}" show-cancel bind:cancel="handleCancel2" bind:click="handleClickItem2" mask-closable="{{ false }}">
+    <view slot="header" style="padding: 16px">
+        <view style="color: #444;font-size: 16px">确定吗？</view>
+        <text>删除后无法恢复哦</text>
     </view>
+  </i-action-sheet>
+  <i-swipeout  i-class="i-swipeout-demo-item" operateWidth="{{180}}" unclosable="{{true}}" toggle="{{toggle}}" wx:for="{{todoList}}">
+    <view slot="content">
+        <view class="i-swipeout-image">
+        <i-icon type="flag"  size="40" color="#2d8cf0"/>
+      </view>
+      <view class="i-swipeout-des">
+            <view class="i-swipeout-des-h2">{{item.title}}</view>
+            <view class="i-swipeout-des-detail">{{item.detail}}</view>
+      </view>
+    </view>
+    <view slot="button" class="i-swipeout-demo-button-group" style="border-left:1rpx solid #ccc">
+        <view class="i-swipeout-demo-button" style="width:60px" bindtap="taskDone" data-taskId="{{item.id}}"><i-icon type="success_fill" size="40"  color="#19be6b"/></view>
+        <view class="i-swipeout-demo-button" style="width:60px" bindtap="actionsTap"><i-icon size="40" type="trash_fill" color="#ed3f14"></i-icon></view>
+    </view>
+  </i-swipeout>
   </view>
   </block>
-  <view class="list-wrap" wx:elif="{{doneList.size > 0 && !isTodo}}">
-  222
+  <!-- <view class="list-wrap" wx:elif="{{doneList.length > 0 && !isTodo}}">
     <view class="task-item" wx:for="{{doneList}}" wx:key="id">
       <checkbox value="cb" checked="{{item.state == 1? true : false}}" disabled="{{item.state == 1? true : false}}"/><text>{{item.title}}</text>
       <view>{{ item.detail }}</view>
     </view>
-  </view>
-  <view wx:else>
-    <text>{{doneList.length}}</text>
-  </view>
+  </view> -->
 </view>

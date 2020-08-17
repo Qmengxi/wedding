@@ -5,11 +5,59 @@ Page({
    * 页面的初始数据
    */
   data: {
-    todoList:new Map(),
-    doneList:new Map(),
+    todoList:[],
+    doneList:[],
     isTodo:true,
-    current: 'tab1',
+    current: 'todoTab',
+    visible2: false,
+    toggle : false,
+    toggle2 : false,
+    actions2: [
+      {
+          name: '删除',
+          color: '#ed3f14'
+      }
+  ],
   },
+  handleCancel2 () {
+    this.setData({
+        visible2: false,
+        toggle : this.data.toggle ? false : true
+    });
+    console.log( this.data.toggle,111111111 )
+},
+handleClickItem2 () {
+    const action = [...this.data.actions2];
+    action[0].loading = true;
+
+    this.setData({
+        actions2: action
+    });
+
+    setTimeout(() => {
+        action[0].loading = false;
+        this.setData({
+            visible2: false,
+            actions2: action,
+            toggle: this.data.toggle ? false : true
+        });
+        
+    }, 2000);
+},
+handlerCloseButton(){
+  this.setData({
+      toggle2: this.data.toggle2 ? false : true
+  });
+},
+actionsTap(){
+  this.setData({
+      visible2: true
+  });
+},
+taskDone(e){
+  let query = e.currentTarget.dataset['taskid']
+  console.log(e.currentTarget)
+},
   showTodo:function(){
     this.setData({
       isTodo:true
@@ -29,6 +77,15 @@ Page({
     this.setData({
         current: detail.key
     });
+    if(detail.key == 'todoTab'){
+      this.setData({
+        isTodo:true
+      })
+    }else{
+      this.setData({
+        isTodo:false
+      })
+    }
 },
 
   /**
@@ -40,26 +97,21 @@ Page({
       data:{
         pageNo:0,
         pageSize:9999,
-        // screen:{
-        //   state:0
-        // }
       },
       method:'post',
       success:res=>{
-        let toDoMap = new Map();
-        let doneMap = new Map();
+        let todoList = new Array();
+        let doneList = new Array();
         res.data.result.forEach(item=>{
           if(item.state == 0){
-            toDoMap.set(item.id,item)
+            todoList.push(item)
           }else if(item.state == 1){
-            doneMap.set(item.id,item)
+            doneList.push(item)
           }
         })
-        console.log(toDoMap,toDoMap.size)
-        console.log(doneMap,doneMap.size)
         this.setData({
-          todoList:toDoMap,
-          doneList:doneMap
+          todoList:todoList,
+          doneList:doneList
         })
         console.log(res)
       }
