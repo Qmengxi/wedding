@@ -1,9 +1,18 @@
 /* pages/news/news.wxss */
 .icon-add{
-  padding: 20px;
-  padding-top: 10px;
+  position: fixed;
+  right: 30rpx;
+  bottom:80rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: blueviolet;
+  border-radius: 50%;
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
+  line-height: 100rpx;
+  font-weight: bold;
+  color: #fff;
+  z-index: 9999;
 }
 .i-swipeout-content{
   display: flex;

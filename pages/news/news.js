@@ -1,5 +1,5 @@
 // pages/news/news.js
-const { $Message } = require('../dist/base/index');
+const { $Toast } = require('../dist/base/index');
 Page({
 
   /**
@@ -8,12 +8,13 @@ Page({
   data: {
     todoList:[],
     doneList:[],
+    handleTaskId:null,
     isTodo:true,
     current: 'todoTab',
-    visible2: false,
-    toggle : false,
+    showDeleteDialog: false,
+    isToggleTask : false,
     toggle2 : false,
-    actions2: [
+    deleteActions: [
       {
           name: '取消'
       },
@@ -25,66 +26,73 @@ Page({
     ],
   },
   addTask(){
-    console.log('1111')
     wx.navigateTo({
       url:'../add-task/add-task?role=1'
     })
   },
-handleClickItem2 ({ detail }) {
+  taskDelete(e){
+    let taskid = e.currentTarget.dataset['taskid']
+    console.log(taskid)
+    this.setData({
+      handleTaskId:taskid,
+        showDeleteDialog: true
+    });
+  },
+  taskDone(e){
+    let taskinfo = e.currentTarget.dataset['taskinfo']
+    let self = this;
+    console.log(taskinfo)
+    wx.request({
+      url: 'https://api.grasses.top:3000/task/modify',
+      data:{
+        state:1,
+        taskId:taskinfo.id,
+        title:taskinfo.title,
+        detail:taskinfo.detail
+      },
+      method:"post",
+      success:function(){
+        self.getList()
+      }
+    })
+  },
+  handleClickDeleteItem ({ detail }) {
   if (detail.index === 0) {
     this.setData({
-      visible2: false
+      showDeleteDialog: false,
+      isToggleTask:false
     });
   } else {
-    const action = [...this.data.actions2];
+    const action = [...this.data.deleteActions];
     action[1].loading = true;
-
     this.setData({
-      actions2: action
+      deleteActions: action
     });
-
-    setTimeout(() => {
-      action[1].loading = false;
-      this.setData({
-        visible2: false,
-        actions2: action
-      });
-      $Message({
-        content: '删除成功！',
-        type: 'success'
-      });
-    }, 2000);
+    let self = this;
+    console.log(this.data.handleTaskId)
+    wx.request({
+      url: 'https://api.grasses.top:3000/task/delete',
+      data:{
+        taskId:self.data.handleTaskId
+      },
+      method:"post",
+      success:function(){
+        action[1].loading = false;
+        self.setData({
+          showDeleteDialog: false,
+          deleteActions: action,
+          isToggleTask:false,
+          handleTaskId:null
+        });
+        $Toast({
+          content: '删除成功',
+          type: 'success'
+        });
+        self.getList()
+      }
+    })
   }
 },
-handlerCloseButton(){
-  this.setData({
-      toggle2: this.data.toggle2 ? false : true
-  });
-},
-actionsTap(){
-  this.setData({
-      visible2: true
-  });
-},
-taskDone(e){
-  let query = e.currentTarget.dataset['taskid']
-  console.log(e.currentTarget)
-},
-  showTodo:function(){
-    this.setData({
-      isTodo:true
-    })
-  },
-  showDone:function(){
-    this.setData({
-      isTodo:false
-    })
-  },
-  changeStatus:function(e){
-    let query = e.currentTarget.dataset['status']
-    console.log(e)
-  },
-
   handleChange ({ detail }) {
     this.setData({
         current: detail.key
@@ -98,6 +106,32 @@ taskDone(e){
         isTodo:false
       })
     }
+},
+getList(){
+  wx.request({
+    url: 'https://api.grasses.top:3000/task/todoList-customer',
+    data:{
+      pageNo:0,
+      pageSize:9999,
+    },
+    method:'post',
+    success:res=>{
+      let todoList = new Array();
+      let doneList = new Array();
+      console.log(res.data.result)
+      res.data.result.forEach(item=>{
+        if(item.state == 0){
+          todoList.push(item)
+        }else if(item.state == 1){
+          doneList.push(item)
+        }
+      })
+      this.setData({
+        todoList:todoList,
+        doneList:doneList
+      })
+    }
+  })
 },
 
   /**
@@ -118,29 +152,7 @@ taskDone(e){
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.request({
-      url: 'https://api.grasses.top:3000/task/todoList-customer',
-      data:{
-        pageNo:0,
-        pageSize:9999,
-      },
-      method:'post',
-      success:res=>{
-        let todoList = new Array();
-        let doneList = new Array();
-        res.data.result.forEach(item=>{
-          if(item.state == 0){
-            todoList.push(item)
-          }else if(item.state == 1){
-            doneList.push(item)
-          }
-        })
-        this.setData({
-          todoList:todoList,
-          doneList:doneList
-        })
-      }
-    })
+    this.getList()
   },
 
   /**
@@ -161,7 +173,7 @@ taskDone(e){
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.getList()
   },
 
   /**

@@ -1,1 +1,31 @@
 /* pages/manager/manager.wxss */
+.icon-add{
+  position: fixed;
+  right: 30rpx;
+  bottom:80rpx;
+  width: 100rpx;
+  height: 100rpx;
+  background-color: blueviolet;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  line-height: 100rpx;
+  font-weight: bold;
+  color: #fff;
+  z-index: 9999;
+}
+.i-swipeout-content{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.i-swipeout-button-right-group{
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.i-swipeout-des-h2{
+  font-size: 36rpx;
+  font-weight: bold;
+}
