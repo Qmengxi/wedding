@@ -1,0 +1,15 @@
+<!--pages/news/news.wxml-->
+<view>
+  <view class="icon-add" bindtap="addTask">
+    <i-icon type="add" size="28" color="#fff" />
+  </view>
+  <view class="card-wrap" wx:for="{{personList}}" wx:key="id">
+   <i-card  title="{{item.title}}">
+    <view slot="content">
+    <view class="info"><text>姓名:</text><text>{{item.name}}</text></view>
+    <view class="info"><text>电话:</text><text bindtap="handleCall" data-phone="{{item.phone}}">{{item.phone}}</text></view>
+    <view class="info"><text>负责内容:</text><text>{{item.description}}</text></view>
+    </view>
+  </i-card>
+  </view>
+</view>

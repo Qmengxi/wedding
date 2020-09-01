@@ -1,0 +1,11 @@
+<!--pages/add-person/add-person.wxml-->
+<view>
+<i-toast id="toast" />
+  <i-panel title="{{topTitle}}">
+    <i-input value="{{ name }}" type="textarea" title="姓名" bind:change="changeName" placeholder="刘小凡"/>
+    <i-input value="{{ phone }}" type="textarea" title="电话" bind:change="changePhone" placeholder="13465809308"/>
+    <i-input value="{{ title }}" type="textarea" title="负责项" bind:change="changeTitle" placeholder="新郎"/>
+    <i-input value="{{ description }}" type="textarea" title="内容详情" bind:change="changeDescription" placeholder="娶新娘回家"/>
+</i-panel>
+<i-button bind:click="saveTask" type="primary">保存</i-button>
+</view>

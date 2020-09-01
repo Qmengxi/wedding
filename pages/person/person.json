@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "i-tabs": "../../dist/tabs/index",
+    "i-tab": "../../dist/tab/index",
+    "i-icon": "../../dist/icon/index",
+    "i-modal": "../../dist/modal/index",
+    "i-swipeout": "../../dist/swipeout/index",
+    "i-toast": "../../dist/toast/index",
+    "i-card": "../../dist/card/index"
+  }
+}

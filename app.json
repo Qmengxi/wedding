@@ -4,7 +4,9 @@
     "pages/logs/logs",
     "pages/news/news",
     "pages/manager/manager",
-    "pages/add-task/add-task"
+    "pages/add-task/add-task",
+    "pages/person/person",
+    "pages/add-person/add-person"
   ],
   "window":{
     "backgroundTextStyle":"light",
@@ -19,6 +21,9 @@
     }, {
       "pagePath": "pages/manager/manager",
       "text": "婚礼人人筹备"
+    },{
+      "pagePath": "pages/person/person",
+      "text": "人员安排"
     }]
   },
   "style": "v2",
